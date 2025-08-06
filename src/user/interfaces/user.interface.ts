@@ -8,7 +8,10 @@ export interface User {
   startCode?: string;
   verificationCode?: string;
   orders: Order[];
+  role?:string;
 }
+
+import { ProductVariant } from '../interfaces/product.interface';
 
 export interface Order {
   id: string;

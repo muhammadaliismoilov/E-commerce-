@@ -1,6 +1,8 @@
 import { Controller, Get, Post, Put, Delete, Query, Body, Param } from '@nestjs/common';
 import { ProductsService } from './products.service';
-import { ProductItem as ProductItemInterface } from './interfaces/product.interface';
+import { ProductItem as ProductItemInterface } from '../user/interfaces/product.interface'
+//   @Prop({ type: [{ type: Object }] })
+//   variants: ProductVariant[];ce';
 
 @Controller('products')
 export class ProductsController {

@@ -6,6 +6,10 @@ export class TelegramConfig {
   constructor(private configService: ConfigService) {}
 
   get botToken(): string {
-    return this.configService.get<string>('TELEGRAM_BOT_TOKEN');
+    const token = this.configService.get<string>('TELEGRAM_BOT_TOKEN');
+    if (!token) {
+      throw new Error('TELEGRAM_BOT_TOKEN is not defined in the environment variables');
+    }
+    return token;
   }
 }

@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ProductItem, ProductItemDocument } from './schemas/product-item.schema';
-import { ProductItem as ProductItemInterface } from './interfaces/product.interface';
+import { Product, ProductDocument } from './schema/product.schema';
+import { ProductItem as ProductItemInterface } from '../user/interfaces/product.interface';
 
 @Injectable()
 export class ProductsService {
-  constructor(@InjectModel(ProductItem.name) private productModel: Model<ProductItemDocument>) {}
+  constructor(@InjectModel(Product.name) private productModel: Model<ProductDocument>) {}
 
-  async create(productData: ProductItemInterface): Promise<ProductItem> {
+  async create(productData: ProductItemInterface): Promise<Product> {
     const product = new this.productModel(productData);
     return product.save();
   }
 
-  async findAll(filters: any): Promise<ProductItem[]> {
+  async findAll(filters: any): Promise<Product[]> {
     const query: any = {};
     
     if (filters.brand) query.brand = filters.brand;
@@ -31,11 +31,11 @@ export class ProductsService {
     return this.productModel.find(query).sort({ 'variants.createdAt': -1 }).exec();
   }
 
-  async findByBrand(brand: string): Promise<ProductItem[]> {
+  async findByBrand(brand: string): Promise<Product[]> {
     return this.productModel.find({ brand }).exec();
   }
 
-  async update(id: string, productData: Partial<ProductItemInterface>): Promise<ProductItem> {
+  async update(id: string, productData: Partial<ProductItemInterface>): Promise<Product | null> {
     return this.productModel.findByIdAndUpdate(id, productData, { new: true }).exec();
   }
 
