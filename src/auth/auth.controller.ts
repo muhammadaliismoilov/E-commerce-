@@ -21,6 +21,7 @@ export class AuthController {
   })
   @ApiResponse({ status: 200, description: 'Verification code sent successfully.', schema: { example: { userId: '12345', message: 'Verification code sent' } } })
   @ApiResponse({ status: 400, description: 'Invalid phone number format.' })
+   @ApiResponse({ status: 404, description: 'Foydalanuvchi topilmadi' })
   @ApiResponse({ status: 500, description: 'Internal server error.' })
   async login(@Body('phone') phone: string) {
     return this.authService.login(phone);

@@ -1,5 +1,5 @@
 export interface User {
-  id: string;
+  id?: string;
   telegramId?: string;
   phone: string;
   firstName?: string;
@@ -14,7 +14,7 @@ export interface User {
 import { ProductVariant } from '../interfaces/product.interface';
 
 export interface Order {
-  id: string;
+  id?: string;
   products: ProductVariant[];
   createdAt: string;
 }

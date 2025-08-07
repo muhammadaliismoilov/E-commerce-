@@ -1,42 +1,43 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes, Types } from 'mongoose';
 import { Order } from '../interfaces/user.interface';
 
 @Schema()
 export class User {
-  
+  @Prop()
+  id?:Types.ObjectId
   @Prop()
   telegramId?: string;
-  
-  @Prop({ required: true })
+
+  @Prop({ required: true, unique: true })
   phone: string;
 
   @Prop()
   firstName?: string;
-  
+
   @Prop()
   lastName?: string;
-  
+
   @Prop({ required: true })
   language: string;
 
   @Prop()
   startCode?: string;
-  
+
   @Prop()
   verificationCode?: string;
-  
-  @Prop({ type: [{ type: Object }] })
+
+  @Prop({ type: [SchemaTypes.Mixed], default: [] })
   orders: Order[];
-  
+
   @Prop({ type: String, enum: ['user', 'admin', 'superadmin'], default: 'user' })
   role: string;
-  
-  @Prop({ default: Date.now })
-  created_at: string;
 
-  @Prop({ default: Date.now })
-  updaterd_at: string;
+  @Prop({ type: Date, default: Date.now })
+  created_at: Date;
+
+  @Prop({ type: Date, default: Date.now })
+  updated_at: Date;
 }
 
 export type UserDocument = User & Document;
